@@ -1,9 +1,42 @@
 import type { Theme, Components, alpha } from '@mui/material'
+import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 
 export const inputsCustomizations: Components<Theme> = {
     MuiInputBase: {
         styleOverrides: {
             root: {
+                border: "none"
+            }
+        }
+    },
+    MuiOutlinedInput: {
+        styleOverrides: {
+            input: {
+                padding: "0",
+            },
+            root: ({ theme }) => ({
+                padding: "8px 12px",
+                fontSize: "12px",
+                color: (theme.vars || theme).palette.text.primary,
+                borderRadius: (theme.vars || theme).shape.borderRadius,
+                outline: `1px solid ${(theme.vars || theme).palette.divider}`,
+                backgroundColor: (theme.vars || theme).palette.background.default,
+                transition: "outline 120ms ease-in",
+                "&:hover": {
+                    outline: "1px solid",
+                },
+                variants: [
+                    {
+                        props: {
+                            size: "small",
+                        },
+                        style: {
+                            height: "34px"
+                        }
+                    },
+                ]
+            }),
+            notchedOutline: {
                 border: "none"
             }
         }
