@@ -10,6 +10,7 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import { Icon } from "@iconify/react";
 import { Avatar } from '@mui/material';
+import { useLocation, Link as RouterLink } from "react-router";
 
 interface ElevationProps {
     window?: () => Window;
@@ -38,6 +39,9 @@ function ElevationScroll(props: ElevationProps) {
 }
 
 export default function Header({ onToggleSidebar, window }: HeaderProps) {
+    const location = useLocation();
+    const pathnames = location.pathname.split("/").filter((x) => x);
+
     return (
         <>
             <ElevationScroll window={window}>
@@ -50,8 +54,38 @@ export default function Header({ onToggleSidebar, window }: HeaderProps) {
                             >
                                 <IconButton sx={{ display: { xl: "none" } }} onClick={onToggleSidebar}><Icon icon="solar:hamburger-menu-line-duotone" /></IconButton>
                                 <Breadcrumbs>
-                                    <Link underline="hover" color="inherit" href="/"><Typography variant="button">dashboards</Typography></Link>
-                                    <Typography variant="button" sx={{ fontWeight: 700 }}>Customer</Typography>
+                                    {pathnames.length === 1 && pathnames[0] === "dashboard"
+                                        ? (
+                                            <Typography variant="button" sx={{ fontWeight: 700 }}> Dashboards </Typography>
+                                        )
+                                        : [
+                                            <Link underline="hover" color="inherit" component={RouterLink} to="/dashboards"><Typography variant="button">Dashboards</Typography></Link>,
+                                            ...pathnames
+                                            .filter((value) => value !== "dashboards")
+                                            .map((value, index) => {
+                                                const to = `/${pathnames.slice(0, index + 1).join("/")}`;
+                                                const isLast = index === pathnames.length - 1;
+
+                                                return isLast ? (
+                                                    <Typography key={to} variant="button" sx={{ fontWeight: 700 }}>
+                                                        {value.charAt(0).toUpperCase() + value.slice(1)}
+                                                    </Typography>
+                                                ) : (
+                                                    <Link
+                                                        key={to}
+                                                        underline="hover"
+                                                        color="inherit"
+                                                        component={RouterLink}
+                                                        to={to}
+                                                    >
+                                                        <Typography variant="button">
+                                                            {value.charAt(0).toUpperCase() + value.slice(1)}
+                                                        </Typography>
+                                                    </Link>
+                                                );
+                                            })
+                                        ]
+                                    }
                                 </Breadcrumbs>
                             </Stack>
                         </Box>

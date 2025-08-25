@@ -40,7 +40,8 @@ export const colorSchemes = {
                 default: "rgb(245, 245, 245)"
             },
             text: {
-                primary: "rgba(0, 0, 0, 0.87)"
+                primary: "rgba(0, 0, 0, 0.87)",
+                secondary: "rgb(123, 128, 154)"
             },
             action: {
                 selected: "rgba(0, 0, 0, 0.08)",

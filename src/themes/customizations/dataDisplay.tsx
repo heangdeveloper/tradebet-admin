@@ -105,4 +105,21 @@ export const dataDisplayCustomizations: Components<Theme> = {
             }
         }
     },
+    MuiTableCell: {
+        styleOverrides: {
+            root: ({theme}) => {
+                return {
+                    width: "150px",
+                    padding: "12px 24px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    lineHeight: 1.5,
+                    color: (theme.vars || theme).palette.text.secondary,
+                    borderBottom: "1px solid rgb(240, 242, 245)",
+                    backgroundColor: "transparent",
+                    opacity: 1,
+                }
+            }
+        }
+    }
 }

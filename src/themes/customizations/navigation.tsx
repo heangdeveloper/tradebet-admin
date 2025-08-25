@@ -5,7 +5,6 @@ export const navigationCustomizations: Components<Theme> = {
         styleOverrides: {
             root: () => {
                 return {
-                    height: "34px",
                     lineHeight: "32px",
                 }
             },
